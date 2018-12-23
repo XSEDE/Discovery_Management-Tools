@@ -7,7 +7,7 @@ PYTHON=python3
 #PYTHON_BASE=/soft/python/python-3.6.6-base
 PYTHON_BASE=/usr/local
 export LD_LIBRARY_PATH=${PYTHON_BASE}/lib
-PYTHON_ROOT=/soft/warehouse-apps-1.0/python
+PYTHON_ROOT=/soft/warehouse-apps-1.0/tools/python
 source ${PYTHON_ROOT}/bin/activate
 
 export PYTHONPATH=$DAEMON_DIR/lib:/soft/warehouse-1.0/PROD/django_xsede_warehouse
