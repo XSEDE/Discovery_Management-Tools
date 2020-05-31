@@ -99,7 +99,7 @@ class RePub():
         eprint('Failed to connect to all AMQP services')
         sys.exit(1)
 
-    def Disconnect_AMQP_UserPass(self):
+    def Disconnect_AMQP(self):
         #self.AMQP_channel.close()
         self.AMQP_connection.close()
                      
