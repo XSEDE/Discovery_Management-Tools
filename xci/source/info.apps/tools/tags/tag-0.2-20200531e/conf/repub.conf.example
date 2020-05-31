@@ -1,0 +1,9 @@
+{
+    "AMQP_PRIMARY": "infopub.xsede.org:5671",
+    "AMQP_FALLBACK": "infopub-alt.xsede.org:5671",
+    "AMQP_USERID": "UPDATEME",
+    "AMQP_PASSWORD": "UPDATEME",
+    "X509_CACERTS": "/path/to/pem/",
+    "X509_CERT": "/soft/warehouse-apps-1.0/conf/cert.pem",
+    "X509_KEY": "/soft/warehouse-apps-1.0/conf/key.pem"
+}
