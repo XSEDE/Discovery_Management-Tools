@@ -83,21 +83,25 @@ class RePub():
             eprint('Error "{}" parsing config={}'.format(ex, config_file))
             sys.exit(1)
                             
-    def ConnectAmqp_UserPass(self):
+    def Connect_AMQP_UserPass(self):
         ssl_opts = {'ca_certs': os.environ.get('X509_USER_CERT'), 'ssl_version': ssl.PROTOCOL_TLSv1_2 }
         for host in [self.config['AMQP_PRIMARY'], self.config['AMQP_FALLBACK']]:
             try:
                 eprint('AMQP connecting to host={} as userid={}'.format(host, self.config['AMQP_USERID']))
-                conn = amqp.Connection(login_method='AMQPLAIN', host=host, virtual_host='xsede',
+                self.AMQP_connection = amqp.Connection(login_method='AMQPLAIN', host=host, virtual_host='xsede',
                                    userid=self.config['AMQP_USERID'], password=self.config['AMQP_PASSWORD'],
                                    heartbeat=120, ssl=ssl_opts)
-                conn.connect()
-                channel = conn.channel()
-                return channel
+                self.AMQP_connection.connect()
+                self.AMQP_channel = self.AMQP_connection.channel()
+                return self.AMQP_channel
             except Exception as ex:
                  eprint('AMQP connect error: ' + format(ex))
         eprint('Failed to connect to all AMQP services')
         sys.exit(1)
+
+    def Disconnect_AMQP_UserPass(self):
+        #self.AMQP_channel.close()
+        self.AMQP_connection.close()
                      
     def RetrieveHistory(self, id):
         try:
@@ -108,8 +112,8 @@ class RePub():
         return(model)
 
     def Publish(self, object):
-        self.channel = self.ConnectAmqp_UserPass()
-        self.channel.basic_publish(amqp.Message(body=json.dumps(object.EntityJSON)),
+        channel = self.Connect_AMQP_UserPass()
+        channel.basic_publish(amqp.Message(body=json.dumps(object.EntityJSON)),
                                    exchange=self.args.exchange or object.DocumentType.encode("utf-8"),
                                    routing_key=self.args.about or object.ResourceID.encode("utf-8"))
                             
@@ -119,4 +123,5 @@ if __name__ == '__main__':
     if not history_object:
         sys.exit(1)
     result = me.Publish(history_object)
+    me.Disconnect_AMQP()
     sys.exit(result)
