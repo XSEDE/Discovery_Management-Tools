@@ -88,7 +88,7 @@ class RePub():
         for host in [self.config['AMQP_PRIMARY'], self.config['AMQP_FALLBACK']]:
             try:
                 eprint('AMQP connecting to host={} as userid={}'.format(host, self.config['AMQP_USERID']))
-                conn = amqp.Connection(login_method='AMQPPLAIN', host=host, virtual_host='xsede',
+                conn = amqp.Connection(login_method='AMQPLAIN', host=host, virtual_host='xsede',
                                    userid=self.config['AMQP_USERID'], password=self.config['AMQP_PASSWORD'],
                                    heartbeat=120, ssl=ssl_opts)
                 conn.connect()
