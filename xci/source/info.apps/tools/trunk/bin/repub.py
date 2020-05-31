@@ -84,13 +84,13 @@ class RePub():
             sys.exit(1)
                             
     def ConnectAmqp_UserPass(self):
-        ssl_opts = {'ca_certs': os.environ.get('X509_USER_CERT')}
+        ssl_opts = {'ca_certs': os.environ.get('X509_USER_CERT'), 'ssl_version': ssl.PROTOCOL_TLSv1_2 }
         for host in [self.config['AMQP_PRIMARY'], self.config['AMQP_FALLBACK']]:
             try:
                 eprint('AMQP connecting to host={} as userid={}'.format(host, self.config['AMQP_USERID']))
-                conn = amqp.Connection(host=host, virtual_host='xsede',
+                conn = amqp.Connection(login_method='AMQPPLAIN', host=host, virtual_host='xsede',
                                    userid=self.config['AMQP_USERID'], password=self.config['AMQP_PASSWORD'],
-                                   ssl=ssl_opts)
+                                   heartbeat=120, ssl=ssl_opts)
                 conn.connect()
                 channel = conn.channel()
                 return channel
