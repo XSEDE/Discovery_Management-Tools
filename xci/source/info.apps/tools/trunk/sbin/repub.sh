@@ -4,7 +4,7 @@
 MY_BASE=/soft/warehouse-apps-1.0/tools
 
 PYTHON=python3
-PYTHON_BASE=/Library/Frameworks/Python.framework/Versions/3.7
+PYTHON_BASE=/soft/python/python-3.7.7-base
 PYTHON_ROOT=/soft/warehouse-apps-1.0/tools/python
 source ${PYTHON_ROOT}/bin/activate
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##################################################################################
 # Republish a glue2.EntityHistory record to RabbitMQ
 #     Can update the exchange
