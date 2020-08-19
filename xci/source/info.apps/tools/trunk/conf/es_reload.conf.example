@@ -3,5 +3,5 @@
     "ELASTIC_HOSTS": ["localhost:9200"],
     "LOG_LEVEL": "info",
     "LOG_FILE": "/soft/warehouse-apps-1.0/tools/var/es_reload.log",
-    "PID_FILE": "/soft/warehouse-apps-1.0/Manage-XCSR/var/route_xcsr.pid"
+    "PID_FILE": "/soft/warehouse-apps-1.0/tools/var/route_xcsr.pid"
 }
